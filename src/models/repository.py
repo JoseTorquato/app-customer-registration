@@ -1,18 +1,19 @@
-from models.interfaces.repository_interface import RepositoryInterface
+from src.database.manager_db import manager_db
+from src.models.interfaces.repository_interface import RepositoryInterface
 
 
 class Repository(RepositoryInterface):
     def migrate(self):
-        pass
+        manager_db.migrate()
 
     def create(self):
-        pass
+        manager_db.insert_person()
 
     def update(self):
-        pass
+        manager_db.update_person()
 
     def delete(self):
-        pass
+        manager_db.delete_person()
 
     def select(self):
-        pass
+        manager_db.get_all_persons()
