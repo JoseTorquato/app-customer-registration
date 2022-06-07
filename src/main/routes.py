@@ -10,4 +10,4 @@ from src.main.composer.customer_register_composer import \
 @customer_registration_routes_bp.route("/persons", methods=["GET"])
 def persons():
     http_response = request_adapter(request, customer_registration_composer())
-    return "Helloooooo"
+    return jsonify(http_response.body), http_response.status_code

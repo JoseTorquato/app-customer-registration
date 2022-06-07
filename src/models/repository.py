@@ -16,4 +16,4 @@ class Repository(RepositoryInterface):
         manager_db.delete_person()
 
     def select(self):
-        manager_db.get_all_persons()
+        return manager_db.get_all_persons()

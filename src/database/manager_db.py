@@ -47,11 +47,15 @@ class __ManagerDataBase:
         cursor = conn.cursor()
 
         cursor.execute(f"SELECT * FROM persons;")
-
-        for row in cursor.fetchall():
-            print(row)
-
+        records = cursor.fetchall()
         conn.close()
+
+        if records:
+            a = [{"id":id, "name":name, "age":age, "district": district, "profession":profession} for id, name, age, district, profession in records]
+            print(a)
+            return a
+        else:
+            return {}
 
     def insert_person(self):
         conn = sqlite3.connect(f'customer_registration.db')

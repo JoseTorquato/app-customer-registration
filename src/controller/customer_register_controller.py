@@ -1,4 +1,4 @@
-from typing import Type
+from typing import List, Type
 
 from src.controller.interface.customer_register_interface import \
     CustomerRegisterInterface
@@ -9,8 +9,8 @@ class CustomerRegisterController(CustomerRegisterInterface):
     def __init__(self, repository: Type[RepositoryInterface]) -> None:
         self.__repository = repository        
 
-    def create_person(self) -> None:
-        self.__repository.create()     
+    def create_person(self) -> any:
+        return self.__repository.create()     
 
-    def get_person(self) -> None:
-        self.__repository.select()
+    def get_person(self) -> List:
+        return self.__repository.select()
