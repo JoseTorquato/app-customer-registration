@@ -16,4 +16,3 @@ class Repository(RepositoryInterface):
 
     def select(self):
         pass
-    
