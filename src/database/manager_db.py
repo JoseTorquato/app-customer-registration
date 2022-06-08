@@ -57,12 +57,20 @@ class __ManagerDataBase:
         else:
             return {}
 
-    def insert_person(self):
+    def insert_person(self, person):
         conn = sqlite3.connect(f'customer_registration.db')
         cursor = conn.cursor()
-        cursor.execute(f"INSERT INTO persons (id, name, age, district, profession) VALUES (1, 'José', 30, 'Guajuviras', 'developer');")
-        conn.commit()
-        conn.close()
+
+        values = tuple(person.values())
+
+        cursor.execute("INSERT INTO persons (name, age, district, profession, id) VALUES {};".format(values))
+        
+        if cursor.rowcount > 0:
+            conn.commit()
+            conn.close()
+            return {'success':True, 'message': f'Cliente {person["name"]} criado com sucesso.'}
+        else:
+            return {'success':False,'message': 'Ocorreu um erro inesperado.'}
     
     def update_person(self):
         conn = sqlite3.connect(f'customer_registration.db')

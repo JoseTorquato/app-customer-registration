@@ -6,8 +6,8 @@ class Repository(RepositoryInterface):
     def migrate(self):
         manager_db.migrate()
 
-    def create(self):
-        manager_db.insert_person()
+    def create(self, data):
+        return manager_db.insert_person(data)
 
     def update(self):
         manager_db.update_person()
