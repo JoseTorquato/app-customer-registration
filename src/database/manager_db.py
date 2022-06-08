@@ -96,12 +96,15 @@ class __ManagerDataBase:
         else:
             return {'success':False,'message': 'Ocorreu um erro inesperado.'}
     
-    def delete_person(self):
+    def delete_person(self, person):
         conn = sqlite3.connect(f'customer_registration.db')
         cursor = conn.cursor()
-        cursor.execute(f"""DELETE FROM persons WHERE id=1;""")
+        cursor.execute("DELETE FROM persons WHERE id={} and name='{}';".format(person.id, person.name))
         conn.commit()
         conn.close()
-
+        if cursor.rowcount > 0:
+            return {'success':True, 'message': f'Cliente {person.name} deletado com sucesso.'}
+        else:
+            return {'success':False,'message': 'Ocorreu um erro inesperado.'}
 
 manager_db  = __ManagerDataBase()

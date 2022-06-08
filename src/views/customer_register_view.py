@@ -23,6 +23,8 @@ class CustomerRegisterView(ViewInterface):
                 response = self.__controller.create_person(http_request.body)
             elif http_request.url == "/persons/update":
                 response = self.__controller.update_person(http_request.body)
+            elif http_request.url == "/persons/delete":
+                response = self.__controller.delete_person(http_request.body)
             else:
                 response = None
                 

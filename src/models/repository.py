@@ -25,8 +25,10 @@ class Repository(RepositoryInterface):
         person = Person(search)
         return manager_db.update_person(person)
 
-    def delete(self):
-        manager_db.delete_person()
+    def delete(self, data):
+        search = self.search_by_name(data["name"])
+        person = Person(search)
+        return manager_db.delete_person(person)
 
     def search_by_name(self, name):
         return manager_db.get_person_by_name(name)

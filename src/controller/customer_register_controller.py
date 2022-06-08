@@ -18,7 +18,10 @@ class CustomerRegisterController(CustomerRegisterInterface):
         return self.__repository.create(data)   
 
     def update_person(self, data) -> any:
-        return self.__repository.update(data)     
+        return self.__repository.update(data)       
+
+    def delete_person(self, data) -> any:
+        return self.__repository.delete(data)     
 
     def get_person(self) -> List:
         return self.__repository.select()
