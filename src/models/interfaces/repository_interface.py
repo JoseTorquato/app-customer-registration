@@ -19,5 +19,9 @@ class RepositoryInterface(ABC):
         pass
 
     @abstractmethod
+    def search_by_name(self):
+        pass
+
+    @abstractmethod
     def select(self):
         pass

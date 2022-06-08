@@ -10,7 +10,7 @@ def request_adapter(request: FlaskRequest, callback: Type[ViewInterface]) -> Htt
     body = None
     if request.method != "GET":
         body = request.json
-    print(request.path)
+
     http_request = HttpRequest(
         header=request.headers,
         body=body,

@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+from unicodedata import name
 
 
 class __ManagerDataBase:
@@ -51,35 +52,49 @@ class __ManagerDataBase:
         conn.close()
 
         if records:
-            a = [{"id":id, "name":name, "age":age, "district": district, "profession":profession} for id, name, age, district, profession in records]
-            print(a)
-            return a
+            return [{"id":id, "name":name, "age":age, "district": district, "profession":profession} for id, name, age, district, profession in records]
         else:
             return {}
+    
+    def get_person_by_name(self, name):
+        conn = sqlite3.connect(f'customer_registration.db')
+
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM persons WHERE name LIKE '{}'".format(name))
+        records = cursor.fetchall()
+        conn.close()
+        if records:
+            return [{"id":id, "name":name, "age":age, "district": district, "profession":profession} for id, name, age, district, profession in records][0]
+        else:
+            print(f"Não existe cliente com esse nome")
 
     def insert_person(self, person):
         conn = sqlite3.connect(f'customer_registration.db')
         cursor = conn.cursor()
 
-        values = tuple(person.values())
+        values = person.get_values()
 
         cursor.execute("INSERT INTO persons (name, age, district, profession, id) VALUES {};".format(values))
         
         if cursor.rowcount > 0:
             conn.commit()
             conn.close()
-            return {'success':True, 'message': f'Cliente {person["name"]} criado com sucesso.'}
+            return {'success':True, 'message': f'Cliente {person.name} criado com sucesso.'}
         else:
             return {'success':False,'message': 'Ocorreu um erro inesperado.'}
     
-    def update_person(self):
+    def update_person(self, person):
         conn = sqlite3.connect(f'customer_registration.db')
         cursor = conn.cursor()
-        cursor.execute(f"""UPDATE persons 
-                        SET age=31, district='Guaju', profession='desenvolvedor'
-                        WHERE id=1;""")
+        cursor.execute("UPDATE persons SET age={}, district='{}', profession='{}' WHERE id={} and name='{}';".format(
+            person.age, person.district, person.profession, person.id, person.name
+        ))
         conn.commit()
         conn.close()
+        if cursor.rowcount > 0:
+            return {'success':True, 'message': f'Dados do cliente {person.name} alterado com sucesso.'}
+        else:
+            return {'success':False,'message': 'Ocorreu um erro inesperado.'}
     
     def delete_person(self):
         conn = sqlite3.connect(f'customer_registration.db')

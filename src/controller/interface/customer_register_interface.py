@@ -8,5 +8,10 @@ class CustomerRegisterInterface(ABC):
         pass
     
     @abstractmethod
+    def update_person(self):
+        pass
+    
+    @abstractmethod
     def get_person(self):
         pass
+    

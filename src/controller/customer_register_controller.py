@@ -10,8 +10,11 @@ class CustomerRegisterController(CustomerRegisterInterface):
         self.__repository = repository        
 
     def create_person(self, data) -> any:
-        data["id"] =  len(self.__repository.select()) + 1
-        return self.__repository.create(data)     
+        data["id"] = len(self.__repository.select()) + 1
+        return self.__repository.create(data)   
+
+    def update_person(self, data) -> any:
+        return self.__repository.update(data)     
 
     def get_person(self) -> List:
         return self.__repository.select()
