@@ -16,6 +16,9 @@ class CustomerRegisterView(ViewInterface):
         # try:
             if http_request.url == "/persons":
                 response = self.__controller.get_person()
+            elif http_request.url == "/persons/search":
+                print("olá")
+                response = self.__controller.search_person(http_request.body)
             elif http_request.url == "/persons/create":
                 response = self.__controller.create_person(http_request.body)
             elif http_request.url == "/persons/update":

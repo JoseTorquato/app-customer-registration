@@ -9,6 +9,10 @@ class CustomerRegisterController(CustomerRegisterInterface):
     def __init__(self, repository: Type[RepositoryInterface]) -> None:
         self.__repository = repository        
 
+    def search_person(self, data) -> any:
+        print(data)
+        return self.__repository.search_by_name(data["name"])  
+
     def create_person(self, data) -> any:
         data["id"] = len(self.__repository.select()) + 1
         return self.__repository.create(data)   
