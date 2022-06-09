@@ -23,8 +23,9 @@ Terceiro passo:
 ### END POINTS
 http://127.0.0.1:5006
 
+```bash
 [GET] /persons -> Get all persons
-
+```
 ```bash
 [POST] /persons/search -> Get unique person by name 
 ```
