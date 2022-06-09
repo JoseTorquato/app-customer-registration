@@ -15,16 +15,15 @@ class CustomerRegisterView(ViewInterface):
     def handle(self, http_request: Type[HttpRequest]) -> Type[HttpResponse]:
         # try:
             if http_request.url == "/persons":
-                response = self.__controller.get_person()
+                response = self.__controller.get_person("customer_registration.db")
             elif http_request.url == "/persons/search":
-                print("olá")
-                response = self.__controller.search_person(http_request.body)
+                response = self.__controller.search_person(http_request.body, "customer_registration.db")
             elif http_request.url == "/persons/create":
-                response = self.__controller.create_person(http_request.body)
+                response = self.__controller.create_person(http_request.body, "customer_registration.db")
             elif http_request.url == "/persons/update":
-                response = self.__controller.update_person(http_request.body)
+                response = self.__controller.update_person(http_request.body, "customer_registration.db")
             elif http_request.url == "/persons/delete":
-                response = self.__controller.delete_person(http_request.body)
+                response = self.__controller.delete_person(http_request.body, "customer_registration.db")
             else:
                 response = None
                 

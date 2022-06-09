@@ -23,8 +23,8 @@ class __ManagerDataBase:
         except Error as e:
             print(e)
 
-    def migrate(self):
-        database = "customer_registration.db"
+    def migrate(self, db_name):
+        database = db_name
 
         sql_create_persons_table = """ CREATE TABLE IF NOT EXISTS persons (
                                             id integer PRIMARY KEY,
@@ -42,8 +42,8 @@ class __ManagerDataBase:
         else:
             print("Error! cannot create the database connection.")
 
-    def get_all_persons(self):
-        conn = sqlite3.connect(f'customer_registration.db')
+    def get_all_persons(self, db_name):
+        conn = sqlite3.connect(db_name)
 
         cursor = conn.cursor()
 
@@ -56,8 +56,8 @@ class __ManagerDataBase:
         else:
             return {}
     
-    def get_person_by_name(self, name):
-        conn = sqlite3.connect(f'customer_registration.db')
+    def get_person_by_name(self, name, db_name):
+        conn = sqlite3.connect(db_name)
 
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM persons WHERE name LIKE '{}'".format(name))
@@ -66,10 +66,10 @@ class __ManagerDataBase:
         if records:
             return [{"id":id, "name":name, "age":age, "district": district, "profession":profession} for id, name, age, district, profession in records][0]
         else:
-            print(f"Não existe cliente com esse nome")
+            return {"message": "Não existe cliente com esse nome", "success": False}
 
-    def insert_person(self, person):
-        conn = sqlite3.connect(f'customer_registration.db')
+    def insert_person(self, person, db_name):
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
 
         values = person.get_values()
@@ -83,8 +83,8 @@ class __ManagerDataBase:
         else:
             return {'success':False,'message': 'Ocorreu um erro inesperado.'}
     
-    def update_person(self, person):
-        conn = sqlite3.connect(f'customer_registration.db')
+    def update_person(self, person, db_name):
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         cursor.execute("UPDATE persons SET age={}, district='{}', profession='{}' WHERE id={} and name='{}';".format(
             person.age, person.district, person.profession, person.id, person.name
@@ -96,8 +96,8 @@ class __ManagerDataBase:
         else:
             return {'success':False,'message': 'Ocorreu um erro inesperado.'}
     
-    def delete_person(self, person):
-        conn = sqlite3.connect(f'customer_registration.db')
+    def delete_person(self, person, db_name):
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         cursor.execute("DELETE FROM persons WHERE id={} and name='{}';".format(person.id, person.name))
         conn.commit()

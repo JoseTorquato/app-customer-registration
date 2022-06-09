@@ -4,15 +4,15 @@ from src.models.interfaces.repository_interface import RepositoryInterface
 
 
 class Repository(RepositoryInterface):
-    def migrate(self):
-        manager_db.migrate()
+    def migrate(self, db_name="customer_registration.db"):
+        return manager_db.migrate(db_name)
 
-    def create(self, data):
+    def create(self, data, db_name="customer_registration.db"):
         person = Person(data)
-        return manager_db.insert_person(person)
+        return manager_db.insert_person(person, db_name)
 
-    def update(self, data):
-        search = self.search_by_name(data["name"])
+    def update(self, data, db_name="customer_registration.db"):
+        search = self.search_by_name(data["name"], db_name)
         if data.get("age", ""):
             search["age"] = data["age"] 
 
@@ -23,15 +23,15 @@ class Repository(RepositoryInterface):
             search["district"] = data["district"]
         
         person = Person(search)
-        return manager_db.update_person(person)
+        return manager_db.update_person(person, db_name)
 
-    def delete(self, data):
-        search = self.search_by_name(data["name"])
+    def delete(self, data, db_name="customer_registration.db"):
+        search = self.search_by_name(data["name"], db_name)
         person = Person(search)
-        return manager_db.delete_person(person)
+        return manager_db.delete_person(person, db_name)
 
-    def search_by_name(self, name):
-        return manager_db.get_person_by_name(name)
+    def search_by_name(self, name, db_name="customer_registration.db"):
+        return manager_db.get_person_by_name(name,db_name)
 
-    def select(self):
-        return manager_db.get_all_persons()
+    def select(self, db_name="customer_registration.db"):
+        return manager_db.get_all_persons(db_name)
