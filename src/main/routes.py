@@ -17,7 +17,6 @@ def persons():
     http_response = request_adapter(request, customer_registration_composer())
     return jsonify(http_response.body), http_response.status_code
 
-
 @customer_registration_routes_bp.route("/persons/create", methods=["POST"])
 def create():
     http_response = request_adapter(request, customer_registration_composer())
