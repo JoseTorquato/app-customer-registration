@@ -1,6 +1,5 @@
 import sqlite3
 from sqlite3 import Error
-from unicodedata import name
 
 
 class __ManagerDataBase:

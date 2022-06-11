@@ -1,12 +1,15 @@
 import sqlite3
 
 import pytest
+from src.controller.create_person_controller import \
+    CreateCustomerRegisterController
 from src.controller.customer_register_controller import \
     CustomerRegisterController
 from src.models.repository import Repository
 
 repository = Repository()
 controller = CustomerRegisterController(repository)
+create_person_controller = CreateCustomerRegisterController(repository)
 
 def test_search_person_by_name_not_exist():
     repository.migrate("customer_registration_test.db")
@@ -16,9 +19,9 @@ def test_search_person_by_name_not_exist():
     assert controller.search_person({"name": "Maria"}, "customer_registration_test.db")["success"] == False
 
 def test_create_person():
-    assert controller.create_person({"name": "José", "age": 25, "district": "", "profession": ""}, "customer_registration_test.db") == {'message': 'Cliente José criado com sucesso.', 'success':True}
-    assert controller.create_person({"name": "Pedro", "age": 26, "district": "Guajuviras", "profession": ""}, "customer_registration_test.db")["message"] == 'Cliente Pedro criado com sucesso.'
-    assert controller.create_person({"name": "Maria", "age": 45, "district": "Estância", "profession": "Developer"}, "customer_registration_test.db")["success"] == True
+    assert create_person_controller.create_person({"name": "José", "age": 25, "district": "", "profession": ""}, "customer_registration_test.db") == {'message': 'Cliente José criado com sucesso.', 'success':True}
+    assert create_person_controller.create_person({"name": "Pedro", "age": 26, "district": "Guajuviras", "profession": ""}, "customer_registration_test.db")["message"] == 'Cliente Pedro criado com sucesso.'
+    assert create_person_controller.create_person({"name": "Maria", "age": 45, "district": "Estância", "profession": "Developer"}, "customer_registration_test.db")["success"] == True
 
 def test_search_person_by_name_exist():
     assert controller.search_person({"name": "José"}, "customer_registration_test.db") == {'age': 25, 'district': '', 'id': 1, 'name': 'José', 'profession': ''}

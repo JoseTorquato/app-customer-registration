@@ -1,4 +1,4 @@
-from src.database.manager_db import manager_db
+from src.models.database.manager_db import manager_db
 from src.models.entities.person import Person
 from src.models.interfaces.repository_interface import RepositoryInterface
 

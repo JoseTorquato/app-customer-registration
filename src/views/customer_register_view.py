@@ -13,13 +13,11 @@ class CustomerRegisterView(ViewInterface):
         self.__controller = controller
     
     def handle(self, http_request: Type[HttpRequest]) -> Type[HttpResponse]:
-        # try:
+        try:
             if http_request.url == "/persons":
                 response = self.__controller.get_person("customer_registration.db")
             elif http_request.url == "/persons/search":
                 response = self.__controller.search_person(http_request.body, "customer_registration.db")
-            elif http_request.url == "/persons/create":
-                response = self.__controller.create_person(http_request.body, "customer_registration.db")
             elif http_request.url == "/persons/update":
                 response = self.__controller.update_person(http_request.body, "customer_registration.db")
             elif http_request.url == "/persons/delete":
@@ -28,5 +26,5 @@ class CustomerRegisterView(ViewInterface):
                 response = None
                 
             return HttpResponse(status_code=200, body={ "response": response })
-        # except Exception as exception:
-        #     return HttpResponse(status_code=500, body={ "error": str(exception) })
+        except Exception as exception:
+            return HttpResponse(status_code=500, body={ "error": str(exception) })
