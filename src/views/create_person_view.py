@@ -15,7 +15,6 @@ class CreateCustomerRegisterView(ViewInterface):
     def handle(self, http_request: Type[HttpRequest]) -> Type[HttpResponse]:
         try:
             response = self.__controller.create_person(http_request.body, "customer_registration.db")
-                
             return HttpResponse(status_code=200, body={ "response": response })
         except Exception as exception:
-            return HttpResponse(status_code=500, body={ "error": str(exception) })
+            return HttpResponse(status_code=500, body=exception.error_json())

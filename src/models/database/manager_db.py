@@ -1,6 +1,8 @@
 import sqlite3
 from sqlite3 import Error
 
+from src.errors.validators_errors import RepositoryErrors
+
 
 class __ManagerDataBase:
     def create_connection(self, db_file):
@@ -68,20 +70,22 @@ class __ManagerDataBase:
             return {"message": "Não existe cliente com esse nome", "success": False}
 
     def insert_person(self, person, db_name):
-        conn = sqlite3.connect(db_name)
-        cursor = conn.cursor()
+        try:
+            conn = sqlite3.connect(db_name)
+            cursor = conn.cursor()
 
-        values = person.get_values()
+            query = "INSERT INTO persons (name, age, district, profession, id) VALUES (?, ?, ?, ?, ?);"
+            cursor.execute(query, (person.name, person.age, person.district, person.profession, person.id,))
+            
+            if cursor.rowcount > 0:
+                conn.commit()
+                conn.close()
+                return {'success':True, 'message': f'Cliente {person.name} criado com sucesso.'}
+            else:
+                return {'success':False,'message': 'Ocorreu um erro inesperado.'}
+        except Exception as exception:
+            raise RepositoryErrors(str(exception))
 
-        cursor.execute("INSERT INTO persons (name, age, district, profession, id) VALUES {};".format(values))
-        
-        if cursor.rowcount > 0:
-            conn.commit()
-            conn.close()
-            return {'success':True, 'message': f'Cliente {person.name} criado com sucesso.'}
-        else:
-            return {'success':False,'message': 'Ocorreu um erro inesperado.'}
-    
     def update_person(self, person, db_name):
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()

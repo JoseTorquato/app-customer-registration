@@ -9,7 +9,7 @@ from src.views.interfaces.views_interface import ViewInterface
 def request_adapter(request: FlaskRequest, callback: Type[ViewInterface]) -> HttpResponse:
     body = None
     if request.method != "GET":
-        body = request.json
+        body= request.json
 
     http_request = HttpRequest(
         header=request.headers,
@@ -18,3 +18,4 @@ def request_adapter(request: FlaskRequest, callback: Type[ViewInterface]) -> Htt
     )
     http_response = callback.handle(http_request)
     return http_response
+    

@@ -1,4 +1,7 @@
+from typing import Type
+
 from flask import Blueprint, jsonify, request
+from src.main.adapter.create_request_adapter import create_request_adapter
 from src.main.composer.customer_register_composer import \
     customer_registration_composer
 
@@ -21,9 +24,12 @@ def persons():
 
 @customer_registration_routes_bp.route("/persons/create", methods=["POST"])
 def create():
-    http_response = request_adapter(request, create_customer_registration_composer())
-    return jsonify(http_response.body), http_response.status_code
-
+    try:
+        http_response = create_request_adapter(request, create_customer_registration_composer())
+        return jsonify(http_response.body), http_response.status_code
+    except Exception as exception:
+        return exception.error_json()
+        
 @customer_registration_routes_bp.route("/persons/update", methods=["PUT"])
 def update():
     http_response = request_adapter(request, customer_registration_composer())
