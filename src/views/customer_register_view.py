@@ -14,16 +14,7 @@ class CustomerRegisterView(ViewInterface):
     
     def handle(self, http_request: Type[HttpRequest]) -> Type[HttpResponse]:
         try:
-            if http_request.url == "/persons":
-                response = self.__controller.get_person("customer_registration.db")
-            elif http_request.url == "/persons/search":
-                response = self.__controller.search_person(http_request.body, "customer_registration.db")
-            elif http_request.url == "/persons/update":
-                response = self.__controller.update_person(http_request.body, "customer_registration.db")
-            elif http_request.url == "/persons/delete":
-                response = self.__controller.delete_person(http_request.body, "customer_registration.db")
-            else:
-                response = None
+            response = self.__controller.process(http_request.body, "customer_registration.db")
                 
             return HttpResponse(status_code=200, body={ "response": response })
         except Exception as exception:

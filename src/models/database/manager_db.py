@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
-from src.errors.validators_errors import RepositoryErrors
+from src.errors.validators_errors import HttpErrors
 
 
 class __ManagerDataBase:
@@ -84,7 +84,7 @@ class __ManagerDataBase:
             else:
                 return {'success':False,'message': 'Ocorreu um erro inesperado.'}
         except Exception as exception:
-            raise RepositoryErrors(str(exception))
+            raise HttpErrors(str(exception))
 
     def update_person(self, person, db_name):
         conn = sqlite3.connect(db_name)

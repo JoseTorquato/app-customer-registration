@@ -15,8 +15,5 @@ class CustomerRegisterController:
     def update_person(self, data, db_name) -> any:
         return self.__repository.update(data, db_name)       
 
-    def delete_person(self, data, db_name) -> any:
-        return self.__repository.delete(data, db_name)     
-
     def get_person(self, db_name) -> List:
         return self.__repository.select(db_name)
