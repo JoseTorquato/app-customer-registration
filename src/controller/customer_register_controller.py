@@ -12,8 +12,5 @@ class CustomerRegisterController:
     def search_person(self, data, db_name) -> any:
         return self.__repository.search_by_name(data["name"], db_name)  
 
-    def update_person(self, data, db_name) -> any:
-        return self.__repository.update(data, db_name)       
-
     def get_person(self, db_name) -> List:
         return self.__repository.select(db_name)

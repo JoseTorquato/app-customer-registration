@@ -18,4 +18,4 @@ class CustomerRegisterView(ViewInterface):
                 
             return HttpResponse(status_code=200, body={ "response": response })
         except Exception as exception:
-            return HttpResponse(status_code=500, body={ "error": str(exception) })
+            return HttpResponse(status_code=500, body=exception.error_json())

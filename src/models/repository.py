@@ -43,7 +43,7 @@ class Repository(RepositoryInterface):
             person = Person(search)
             return manager_db.update_person(person, db_name)
         except Exception as exception:
-            raise RepositoryErrors(str(exception))
+            raise HttpErrors(str(exception))
 
     def delete(self, data, db_name="customer_registration.db"):
         search = self.search_by_name(data["name"], db_name)

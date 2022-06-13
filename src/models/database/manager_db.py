@@ -89,9 +89,8 @@ class __ManagerDataBase:
     def update_person(self, person, db_name):
         conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
-        cursor.execute("UPDATE persons SET age={}, district='{}', profession='{}' WHERE id={} and name='{}';".format(
-            person.age, person.district, person.profession, person.id, person.name
-        ))
+        query = "UPDATE persons SET age=?, district=?, profession=? WHERE id=? and name=?;"
+        cursor.execute(query, (person.age, person.district, person.profession, person.id, person.name,))
         conn.commit()
         conn.close()
         if cursor.rowcount > 0:
