@@ -1,7 +1,5 @@
 from typing import List, Type
 
-from src.controller.interface.customer_register_interface import \
-    CustomerRegisterInterface
 from src.models.interfaces.repository_interface import RepositoryInterface
 
 

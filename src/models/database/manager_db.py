@@ -82,7 +82,7 @@ class __ManagerDataBase:
                 conn.close()
                 return {'success':True, 'message': f'Cliente {person.name} criado com sucesso.'}
             else:
-                return {'success':False,'message': 'Ocorreu um erro inesperado.'}
+                return {'success':False, 'message': 'Ocorreu um erro inesperado.'}
         except Exception as exception:
             raise HttpErrors(str(exception))
 

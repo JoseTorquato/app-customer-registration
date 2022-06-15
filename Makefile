@@ -23,3 +23,6 @@ lint:
 
 test:
 	@pytest -vv
+
+test-print:
+	@pytest -s -vv

@@ -14,7 +14,10 @@ class CustomerRegisterView(ViewInterface):
     
     def handle(self, http_request: Type[HttpRequest]) -> Type[HttpResponse]:
         try:
-            response = self.__controller.process(http_request.body, "customer_registration.db")
+            if http_request.body:
+                response = self.__controller.process(http_request.body, "customer_registration.db")
+            else:
+                response = self.__controller.process("customer_registration.db")
                 
             return HttpResponse(status_code=200, body={ "response": response })
         except Exception as exception:
