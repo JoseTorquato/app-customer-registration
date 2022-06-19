@@ -8,4 +8,4 @@ class SearchCustomerRegisterController:
         self.__repository = repository 
 
     def process(self, data: Dict, db_name: str) -> any:
-        return self.__repository.search_by_name(data["name"], db_name)    
+        return self.__repository.search_by_name(data["name"], db_name)

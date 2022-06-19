@@ -25,6 +25,7 @@ def create_request_adapter(request: FlaskRequest, callback: Type[ViewInterface])
     validat = request_validate.validate({"data": request.json})
     if validat is False:
         raise SchemaErrors(request_validate.errors["data"])
+        
     http_request = HttpRequest(
         header=request.headers,
         body=request.json,
